@@ -1,8 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {FilterValuesType} from "./App";
+
 
 type AddItemFormPropsType = {
-    callBack: (title: string ) => void
+    callBack: (title: string) => void
 }
 
 export const AddItemForm = (props: AddItemFormPropsType) => {
@@ -10,8 +10,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     let [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
+        let newTitle = title.trim()
         if (title.trim() !== "") {
-            props.callBack(props.todolistID, title.trim());
+            props.callBack(newTitle);
             setTitle("");
         } else {
             setError("Title is required");

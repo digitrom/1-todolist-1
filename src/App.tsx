@@ -24,6 +24,7 @@ function App() {
 
     let todolistID1=v1();
     let todolistID2=v1();
+    let todolistID3=v1();
 
     let [todolists, setTodolists] = useState<Array<TodolistsType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
@@ -61,10 +62,18 @@ function App() {
 
     function addTask(todolistID: string, title: string) {
         let newTask = {id: v1(), title: title, isDone: false};
+        console.log(tasks, todolistID)
         setTasks({...tasks, [todolistID]: [newTask,...tasks[todolistID]]});
-
         // let newTasks = [task, ...tasks];
         // setTasks(newTasks);
+    }
+
+    const addTodolist = (newTitle: string) => {
+        const newID = v1()
+        const newTodo:TodolistsType  = {id: newID, title: newTitle, filter: "all"}
+        setTodolists([...todolists, newTodo])
+        setTasks({...tasks, [newID]:[]})
+
     }
 
     function changeStatus(todolistID: string, taskId: string, newIsDone: boolean) {
@@ -92,10 +101,13 @@ function App() {
         setTodolists(todolists.map(el => el.id===todolistID ? {...el, filter:valueFilter} : el))
     }
 
-    const addTodolist = (newTitle: string, todolistID: string, valueFilter: FilterValuesType) => {
-        let newTitle = {id: todolistID, title: 'What to learn', filter: valueFilter}
-        setTodolists([...todolists, newTitle])
-    }
+    // const addTodolist = (title: string, todolistID: string, valueFilter: FilterValuesType) => {
+    //     let newTitle = {id: todolistID, title: 'What to learn', filter: valueFilter}
+    //     setTodolists([...todolists, newTitle])
+    // }
+
+
+
 
     return (
         <div className="App">
@@ -121,7 +133,7 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={el.filter}
                         removeTodolist={removeTodolist}
-                        id={el.id}
+                        // id={el.id}
                     />
                 )
             })}
