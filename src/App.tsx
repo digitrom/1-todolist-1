@@ -24,7 +24,6 @@ function App() {
 
     let todolistID1=v1();
     let todolistID2=v1();
-    let todolistID3=v1();
 
     let [todolists, setTodolists] = useState<Array<TodolistsType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
@@ -48,6 +47,7 @@ function App() {
         ]
     });
 
+
     const removeTodolist = (todolistID: string) => {
         setTodolists(todolists.filter(el => el.id !== todolistID))
         delete tasks[todolistID]
@@ -67,6 +67,12 @@ function App() {
         // let newTasks = [task, ...tasks];
         // setTasks(newTasks);
     }
+
+    const updateTask = (todolistID: string, taskID: string, newTitle: string) => {
+        console.log(newTitle)
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)})
+    }
+
 
     const addTodolist = (newTitle: string) => {
         const newID = v1()
@@ -133,7 +139,7 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={el.filter}
                         removeTodolist={removeTodolist}
-                        // id={el.id}
+                        updateTask={updateTask}
                     />
                 )
             })}
