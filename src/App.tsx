@@ -73,6 +73,9 @@ function App() {
         setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)})
     }
 
+    const updateTodolist = (todolistID: string, newTitle: string) => {
+setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle }: el))
+    }
 
     const addTodolist = (newTitle: string) => {
         const newID = v1()
@@ -93,27 +96,9 @@ function App() {
         // setTasks([...tasks]);
     }
 
-
-    // let tasksForTodolist = tasks;
-    //
-    // if (todolists[0].filter === "active") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
-    // }
-    // if (todolists[0].filter === "completed") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
-    // }
-
     function changeFilter(todolistID: string, valueFilter: FilterValuesType) {
         setTodolists(todolists.map(el => el.id===todolistID ? {...el, filter:valueFilter} : el))
     }
-
-    // const addTodolist = (title: string, todolistID: string, valueFilter: FilterValuesType) => {
-    //     let newTitle = {id: todolistID, title: 'What to learn', filter: valueFilter}
-    //     setTodolists([...todolists, newTitle])
-    // }
-
-
-
 
     return (
         <div className="App">
@@ -140,6 +125,7 @@ function App() {
                         filter={el.filter}
                         removeTodolist={removeTodolist}
                         updateTask={updateTask}
+                        updateTodolist={updateTodolist}
                     />
                 )
             })}

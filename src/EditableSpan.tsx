@@ -2,7 +2,7 @@ import {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type EditableSpanPropsType = {
     oldTitle: string
-    callBack: (title: string) => void
+    callBack: (newTitle: string) => void
 }
 
 export const EditableSpan = (props: EditableSpanPropsType) => {

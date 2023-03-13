@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import {Button} from "@mui/material";
 
 type TaskType = {
     id: string
@@ -20,7 +21,7 @@ type PropsType = {
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
     updateTask: (todolistID: string, taskID: string, newTitle: string) => void
-    // id: string
+    updateTodolist: (todolistID: string, todoTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -62,10 +63,16 @@ export function Todolist(props: PropsType) {
         props.updateTask(props.todolistID, taskID, newTitle)
     }
 
+    const updateTodolistHandler = (todolistID:string, newTitle: string) => {
+       props.updateTodolist(props.todolistID, newTitle)
+    }
+
     return <div>
         <h3>
-            {props.title}
-            <button onClick={removeTodolistHandler}>X</button>
+            <EditableSpan
+                oldTitle={props.title} callBack={(newTitle) => updateTodolistHandler(props.todolistID,newTitle)}/>
+            {/*<button onClick={removeTodolistHandler}>X</button>*/}
+            <Button onClick={removeTodolistHandler}variant="contained" color="success">X</Button>
         </h3>
         < AddItemForm callBack={addTaskHandler}/>
 
@@ -84,7 +91,8 @@ export function Todolist(props: PropsType) {
                                checked={t.isDone}/>
                         {/*<span>{t.title}</span>*/}
                         <EditableSpan oldTitle={t.title}
-                                      callBack={(newTitle) => updateTaskHandler(t.id, newTitle)}/>
+                                      callBack={(newTitle) => updateTaskHandler(t.id, newTitle)
+                        }/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
