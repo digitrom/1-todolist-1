@@ -1,14 +1,14 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType} from './App';
+import {FilterValuesType, TaskType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button} from "@mui/material";
 
-type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+// type TaskType = {
+//     id: string
+//     title: string
+//     isDone: boolean
+// }
 
 type PropsType = {
     todolistID: string
@@ -64,7 +64,7 @@ export function Todolist(props: PropsType) {
     }
 
     const updateTodolistHandler = (todolistID:string, newTitle: string) => {
-       props.updateTodolist(props.todolistID, newTitle)
+        props.updateTodolist(props.todolistID, newTitle)
     }
 
     return <div>
@@ -80,19 +80,19 @@ export function Todolist(props: PropsType) {
             {
                 props.tasks.map(t => {
 
-                    const onClickHandler = () => props.removeTask(props.todolistID, t.id)
+                    const onClickHandler = () => props.removeTask(props.todolistID, t.taskID)
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
+                        props.changeTaskStatus(props.todolistID, t.taskID, e.currentTarget.checked);
                     }
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return <li key={t.taskID} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox"
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
                         {/*<span>{t.title}</span>*/}
                         <EditableSpan oldTitle={t.title}
-                                      callBack={(newTitle) => updateTaskHandler(t.id, newTitle)
-                        }/>
+                                      callBack={(newTitle) => updateTaskHandler(t.taskID, newTitle)
+                                      }/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
