@@ -150,13 +150,9 @@ function App() {
         //     ...tasks,
         //     [todolistID]: tasks[todolistID].map(el => el.id === taskId ? {...el, isDone: newIsDone} : el)
         // })
-
-        // let task = tasks.find(t => t.id === taskId);
-        // if (task) {
-        //     task.isDone = isDone;
-        // }
-        //
-        // setTasks([...tasks]);
+        setTodo(todo.map(el => el.todolistID === todolistIDCurrent
+            ? {...el, tasks: el.tasks.map(t => t.taskID === taskId ? {...t, isDone: newIsDone} : t)}
+            : el))
     }
 
     function changeFilter(todolistID: string, valueFilter: FilterValuesType) {
