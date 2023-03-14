@@ -97,9 +97,10 @@ function App() {
         setTodo(todoFromServer.map(el => ({...el, todolistID: v1()})))
     }, [])
 
-    const removeTodolist = (todolistID: string) => {
+    const removeTodolist = (todolistIDCurrent: string) => {
         // setTodolists(todolists.filter(el => el.id !== todolistID))
         // delete tasks[todolistID]
+        setTodo(todo.filter(el => el.todolistID !== todolistIDCurrent))
     }
 
     function removeTask(todolistIDCurrent: string, taskID: string) {
@@ -155,8 +156,13 @@ function App() {
             : el))
     }
 
-    function changeFilter(todolistID: string, valueFilter: FilterValuesType) {
+    function changeFilter(todolistIDCurrent: string, valueFilter: FilterValuesType) {
         // setTodolists(todolists.map(el => el.id === todolistID ? {...el, filter: valueFilter} : el))
+
+        setTodo(todo.map(el => el.todolistID === todolistIDCurrent
+            ? {...el, filter:valueFilter}
+            : el
+        ))
     }
 
     return (
